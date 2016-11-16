@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        ul,li{
+            list-style: none;
+        }
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+        img {
+            display: block;
+            border: 0;
+        }
+        .clearfix {
+            zoom: 0;
+        }
+        .clearfix:after {
+            content: "";
+            display: block;
+            clear: both;
+            visibility: hidden;
+            height: 0;
+        }
+        .box {
+            width: 600px;
+            margin: 20px auto;
+        }
+        #canvas {
+            /*border: 1px solid red;*/
+            border-width: 3px;
+            border-style: solid;
+            border-color: #4d4d4d;
+
+        }
+    </style>
+</head>
+<body>
+    <!--
+        canvas  默认就是300*150 宽高
+     -->
+    <div class="box">
+        <canvas id="canvas" width="600" height="600"></canvas>
+    </div>
+    <!--
+        1. 获取 canvas
+        2. 获取上下文 绘画环境
+        3. 开始绘画
+        4. 使用相应的api 方法
+        5. 喷墨
+
+        PS:   画图中只有一条路径
+     -->
+    <script>
+        //  封装获取方法id
+        function $(id){
+            return document.getElementById(id);
+        };
+        var canvas = $('canvas'),
+            ctx = canvas.getContext('2d');
+
+        //  1.  线条
+        ctx.strokeStyle = "red";  //  默认是        黑色
+        ctx.lineWidth = 50;       //  线条大小默认  1
+        //  起点
+        ctx.moveTo(10,10);
+        //  终点
+        ctx.lineTo(10,100);
+        //  相当于边框   css中  border
+        ctx.stroke();
+
+        //  2. 矩形
+        ctx.fillStyle = "pink";
+
+        // x y w h   xy 起点   wh 宽高    fill  填充   css 中background
+        ctx.fillRect(100,100,200,200);
+
+        // 3. 圆
+        ctx.beginPath();
+        //  圆形  x y  r  开始位置  画圆api
+        ctx.arc(350,350,50,0,2*Math.PI);
+        ctx.fill();
+
+
+        // 4.  文字
+        // ctx.fillText(str,x,y);  str 文字  xy 坐标
+        ctx.font = "600 24px 微软雅黑";   //  font-weiht  font-size  font-family
+        // ctx.fillText("我是一个填充文字",50,50);
+    </script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        ul,li{
+            list-style: none;
+        }
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+        img {
+            display: block;
+            border: 0;
+        }
+        .clearfix {
+            zoom: 0;
+        }
+        .clearfix:after {
+            content: "";
+            display: block;
+            clear: both;
+            visibility: hidden;
+            height: 0;
+        }
+    </style>
+</head>
+<body>
+
+</body>
+</html><!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        ul,li{
+            list-style: none;
+        }
+        html,body {
+            overflow: hidden;
+        }
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+        img {
+            display: block;
+            border: 0;
+        }
+        .clearfix {
+            zoom: 0;
+        }
+        .clearfix:after {
+            content: "";
+            display: block;
+            clear: both;
+            visibility: hidden;
+            height: 0;
+        }
+
+        #canvas {
+            border-width: 3px;
+            border-style: solid;
+            border-color: #4d4d4d;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="canvas"></canvas>
+    <audio src="mp3/2.mp3" autoplay></audio>
+    <!--
+        1. 获取 canvas
+        2. 获取上下文 绘画环境
+        3. 开始绘画
+        4. 使用相应的api 方法
+        5. 喷墨
+
+        PS:   画图中只有一条路径
+
+        1. 获取电脑分辨率
+        2. 给canvas 动态添加 高度宽度
+        3. 遍历相应的坐标   排列文字
+        4. 给一个定时器不断的改变y 的坐标  达到下落的效果
+        5. 限制边界  y 初始化
+     -->
+    <script>
+        //  封装获取方法id
+        function $(id){
+            return document.getElementById(id);
+        };
+        var canvas = $('canvas'),
+            ctx = canvas.getContext('2d'),
+            //  获取电脑分辨率
+            s = window.screen,
+            w = s.width,
+            h = s.height,
+            fontSize = 24,
+            str = "♩♪♫♬〼¤۞♯♭‖¶▬〼‖",
+            cols = Math.floor(w/fontSize),
+            // 定义数组存放所有的y 坐标
+            droups = [];
+
+        //  遍历初始化y的坐标
+        for(var i = 0; i < cols; i++){
+            droups.push(Math.random()*-100);
+        };
+
+
+        //  给canvas 动态添加宽度高度
+        canvas.width = w;
+        canvas.height = h;
+
+        // 绘画函数
+        function draw(){
+            //  过渡效果
+            ctx.fillStyle = "rgba(0,0,0,.25)";
+            //  背景颜色
+            ctx.fillRect(0,0,w,h);
+            //  文字颜色
+            ctx.fillStyle = "green";
+            ctx.font = "600 "+fontSize+"px 微软雅黑";
+            for(var i = 0; i<cols; i++){
+                var index = Math.floor(Math.random()*str.length);
+                var x = fontSize * i;
+                var y = fontSize * droups[i];
+                ctx.fillText(str[index],x,y);
+                //  边界判断
+                if( y > canvas.height) {
+                    droups[i] = 0;
+                }else {
+                    droups[i]++;
+                }
+            };
+
+        };
+        // draw();
+        setInterval(draw,50);
+    </script>
+</body>
+</html>
